@@ -6,6 +6,11 @@ BINARY_NAME := crunchwl
 BINARY_DIR  := bin
 PKG         := ./...
 
+# Install location. PREFIX is the system root; the binary lands in $(PREFIX)/bin.
+# Run `sudo make install` (or set SUDO) to write outside your home directory.
+PREFIX      ?= /usr/local
+SUDO       ?=
+
 # Shrink binary footprint (strip symbol table + DWARF info)
 LDFLAGS         := -ldflags="-s -w"
 LDFLAGS_WINDOWS := -ldflags="-s -w -H=windowsgui"
@@ -24,8 +29,8 @@ build-windows: ## Cross-compile a Windows binary into $(BINARY_DIR)
 	@mkdir -p $(BINARY_DIR)
 	GOOS=windows $(GO) build $(LDFLAGS_WINDOWS) -o $(BINARY_DIR)/$(BINARY_NAME).exe .
 
-install: build ## Build and install the binary into GOBIN
-	$(GO) install $(LDFLAGS) .
+install: build ## Build and copy the binary to $(PREFIX)/bin (system-wide)
+	$(SUDO) install -D -m 0755 $(BINARY_DIR)/$(BINARY_NAME) $(PREFIX)/bin/$(BINARY_NAME)
 
 clean: ## Remove build artifacts
 	@rm -rf $(BINARY_DIR)

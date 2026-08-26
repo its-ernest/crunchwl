@@ -4,10 +4,32 @@ A modern, optimized reimplementation of the classic `crunch` wordlist generator,
 written in Go. It expands SQL-style patterns containing wildcards into every
 matching word and writes them to a file, parallelized across CPU cores.
 
-## Build
+## Installation:
+Needs Go 1.25+
+
+### Using prebuilt binary
 
 ```sh
-go build -o crunchwl .
+wget https://github.com/its-ernest/crunchwl \
+mv crunchwl /usr/bin/crunchwl
+
+```
+
+### Using Go
+```sh
+# Needs Go installed on your system
+go install github.com/its-ernest/crunchwl
+```
+
+### Build from source
+
+```sh
+# Clone the repository
+git clone https://github.com/its-ernest/crunchwl
+cd crunchwl
+
+# Build and install on system
+make build && make install
 ```
 
 ## Usage
