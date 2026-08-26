@@ -44,13 +44,15 @@ go install github.com/its-ernest/crunchwl@latest
 ## Usage
 
 ```sh
-./crunchwl -pattern "admin_%_??" -chars "abcdefghijklmnopqrstuvwxyz0123456789" -min-wildcard 1 -max-wildcard 4 -cores 0 -output wordlist.txt
+crunchwl -pattern "admin_%_??" -chars "abcdefghijklmnopqrstuvwxyz0123456789" -min-wildcard 1 -max-wildcard 4 -cores 0 -output wordlist.txt
 ```
 
 ## Example output
 
+For massive wordlist generation, use custom /tmp so that it bypasses the mounted /tmp size limit.
 ```sh
-[zsh@arch] (.../my/projects/its-ernest/crunchwl) % ./crunchwl -pattern "%" -chars "abedipr.8" -min-wildcard 8 -max-wildcard 10 -output output.txt -cores 5
+[zsh@arch] (.../my/projects/its-ernest/crunchwl) % mkdir -p ./tmp
+[zsh@arch] (.../my/projects/its-ernest/crunchwl) % TMPDIR=./tmp crunchwl -pattern "%" -chars "abedipr.8" -min-wildcard 8 -max-wildcard 10 -output output.txt -cores 5
                             _                _ 
   ___ _ __ _   _ _ __   ___| |__   __      _| |
  / __| '__| | | | '_ \ / __| '_ \  \ \ /\ / / |

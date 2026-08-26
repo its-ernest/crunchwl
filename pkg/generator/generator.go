@@ -70,9 +70,13 @@ func runFixedPattern(multiLengths []int, cfg Config, writer *bufio.Writer) error
 	if variablePositions == 0 {
 		// Pure literal template
 		for _, seg := range cfg.Pattern.Segments {
-			writer.Write(seg.Value)
+			if _, err := writer.Write(seg.Value); err != nil {
+				return err
+			}
 		}
-		writer.WriteByte('\n')
+		if err := writer.WriteByte('\n'); err != nil {
+			return err
+		}
 		return nil
 	}
 
@@ -128,7 +132,9 @@ func runFixedPattern(multiLengths []int, cfg Config, writer *bufio.Writer) error
 				}
 			}
 			buf = append(buf, '\n')
-			writer.Write(buf)
+			if _, err := writer.Write(buf); err != nil {
+				return err
+			}
 
 			if variablePositions == 1 {
 				break

@@ -17,7 +17,7 @@ var figletString string = `
  / __| '__| | | | '_ \ / __| '_ \  \ \ /\ / / |
 | (__| |  | |_| | | | | (__| | | |  \ V  V /| |
  \___|_|   \__,_|_| |_|\___|_| |_|   \_/\_/ |_|
- Version: 1.0.0
+ Version: 1.0.4
 `
 
 // clearScreen resets the terminal using ANSI escape codes so each run starts
@@ -37,6 +37,7 @@ func main() {
 	flag.Parse()
 
 	if *patStr == "" {
+		fmt.Print(figletString)
 		fmt.Println("[-] Error: -pattern flag is required.")
 		flag.Usage()
 		os.Exit(1)
@@ -66,7 +67,7 @@ func main() {
 		effectiveCores = 1
 	}
 
-	clearScreen()
+	//clearScreen() // Intentionally commented out
 	fmt.Print(figletString)
 
 	count := engine.Count(pat, []byte(*chars), *minW, *maxW)
