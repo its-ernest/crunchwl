@@ -3,9 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	"log"
 	"os"
-	"os/exec"
 	"runtime"
 	"time"
 
@@ -22,13 +20,11 @@ var figletString string = `
  Version: 1.0.0
 `
 
-// clearScreen resets the terminal
+// clearScreen resets the terminal using ANSI escape codes so each run starts
+// from a clean view. This avoids shelling out to an external `clear` binary,
+// keeping behavior consistent across platforms and when stdout is piped.
 func clearScreen() {
-	cmd := exec.Command("clear")
-	_, err := cmd.Output()
-	if err != nil {
-		log.Fatal(err)
-	}
+	fmt.Print("\033[H\033[2J")
 }
 
 func main() {

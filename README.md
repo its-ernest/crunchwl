@@ -4,33 +4,42 @@ A modern, optimized reimplementation of the classic `crunch` wordlist generator,
 written in Go. It expands SQL-style patterns containing wildcards into every
 matching word and writes them to a file, parallelized across CPU cores.
 
-## Installation:
-Needs Go 1.25+
+---
 
-### Using prebuilt binary
+## Installation
 
-```sh
-wget https://github.com/its-ernest/crunchwl \
-mv crunchwl /usr/bin/crunchwl
-
-```
-
-### Using Go
-```sh
-# Needs Go installed on your system
-go install github.com/its-ernest/crunchwl
-```
+Requires Go 1.25+ to build from source.
 
 ### Build from source
 
 ```sh
-# Clone the repository
 git clone https://github.com/its-ernest/crunchwl
 cd crunchwl
-
-# Build and install on system
-make build && make install
+make build          # produces bin/crunchwl
 ```
+
+### Install system-wide (global)
+
+`make install` copies the built binary into `$(PREFIX)/bin` (default
+`/usr/local/bin`) so it is available on your `PATH`:
+
+```sh
+sudo make install
+```
+
+To install somewhere other than `/usr/local`, override `PREFIX`:
+
+```sh
+sudo make install PREFIX=/usr
+```
+
+### Using `go install`
+
+```sh
+go install github.com/its-ernest/crunchwl@latest
+```
+
+---
 
 ## Usage
 
@@ -50,10 +59,11 @@ make build && make install
  Version: 1.0.0
 [+] Pattern: %
 [+] Total words: 3917251611
-[+] Timeline: Approximately 24 seconds
 [+] Utilizing 5 of 8 available CPU Cores
 [+] Finished. Output saved to output.txt in 17m3.539446551s
 ```
+
+---
 
 ### Flags
 
@@ -77,3 +87,9 @@ Patterns are sequences of three token kinds:
 
 Example: `admin_%_??` expands to words like `admin`, a 1–4 character wildcard
 filler, a single charset character, then the literal `??`.
+
+---
+
+## Acknowledgements
+
+`crunchwl` is inspired by the original [Crunch](https://sourceforge.net/projects/crunch-wordlist/) wordlist generator developed by bofh28. This project is an independent implementation written in Go featuring SQL-style pattern syntax and native multi-core optimizations.
