@@ -92,4 +92,6 @@ filler, a single charset character, then the literal `??`.
 
 ## Acknowledgements
 
+This project is under the MIT License.
+
 `crunchwl` is inspired by the original [Crunch](https://sourceforge.net/projects/crunch-wordlist/) wordlist generator developed by bofh28. This project is an independent implementation written in Go featuring SQL-style pattern syntax and native multi-core optimizations.
